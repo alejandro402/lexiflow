@@ -26,7 +26,10 @@
     <div class="p-6 sm:p-8">
       <div class="flex items-center gap-3 mb-7">
         <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white grid place-items-center text-xl shadow-lg">✦</div>
-        <div><p class="font-extrabold tracking-tight text-lg">LexiFlow</p><p class="text-xs text-slate-400">Aprende. Practica. Domina.</p></div>
+        <div>
+          <p class="font-extrabold tracking-tight text-lg">LexiFlow</p>
+          <p class="text-xs text-slate-400">Aprende. Practica. Domina.</p>
+        </div>
       </div>
 
       <section id="language-screen" class="screen-in">
@@ -37,52 +40,430 @@
       </section>
 
       <section id="category-screen" class="hidden screen-in">
-        <div class="flex justify-between items-center mb-5"><button class="text-sm font-semibold text-slate-500 hover:text-indigo-600" data-back="language">← Volver a Idiomas</button><button id="reset-btn" title="Borra palabras dominadas y estadísticas guardadas" class="text-xs text-rose-500 font-semibold">🗑️ Reiniciar progreso</button></div>
-        <h1 id="category-title" class="text-3xl font-extrabold tracking-tight mb-2"></h1><p class="text-slate-500 text-sm mb-6">Elige una categoría para comenzar.</p>
+        <div class="flex justify-between items-center mb-5">
+          <button class="text-sm font-semibold text-slate-500 hover:text-indigo-600" data-back="language">← Volver a Idiomas</button>
+          <button id="reset-btn" title="Borra palabras dominadas" class="text-xs text-rose-500 font-semibold">🗑️ Reiniciar</button>
+        </div>
+        <h1 id="category-title" class="text-3xl font-extrabold tracking-tight mb-2"></h1>
+        <p class="text-slate-500 text-sm mb-6">Elige una categoría.</p>
         <div id="category-options" class="space-y-3"></div>
-        <p id="reset-confirm" class="hidden text-center text-emerald-600 font-bold text-sm mt-4">✨ ¡Progreso Reiniciado! ✓</p>
+        <p id="reset-confirm" class="hidden text-center text-emerald-600 font-bold text-sm mt-4">✨ ¡Reiniciado! ✓</p>
       </section>
 
       <section id="level-screen" class="hidden screen-in">
-        <button class="text-sm font-semibold text-slate-500 hover:text-indigo-600 mb-5" data-back="category">← Volver a Categorías</button>
-        <h1 id="level-title" class="text-3xl font-extrabold tracking-tight mb-2"></h1><p class="text-slate-500 text-sm mb-6">Ajusta el reto a tu nivel.</p>
+        <button class="text-sm font-semibold text-slate-500 hover:text-indigo-600 mb-5" data-back="category">← Volver</button>
+        <h1 id="level-title" class="text-3xl font-extrabold tracking-tight mb-2"></h1>
+        <p class="text-slate-500 text-sm mb-6">Ajusta el nivel.</p>
         <div id="level-options" class="space-y-3"></div>
       </section>
 
       <section id="game-screen" class="hidden screen-in">
-        <div class="flex justify-between items-center mb-5"><button class="text-sm font-semibold text-slate-500 hover:text-indigo-600" data-back="level">← Niveles</button><span id="combo-badge" class="bg-indigo-50 text-indigo-600 rounded-full px-3 py-1 text-[10px] font-extrabold tracking-wide"></span></div>
-        <div class="grid grid-cols-3 gap-2 bg-slate-50 rounded-2xl p-3 mb-7 text-center"><div><div id="correct-stat" class="text-xl font-extrabold text-emerald-600">0</div><div class="text-[10px] text-slate-400 font-bold uppercase">Correctas</div></div><div><div id="error-stat" class="text-xl font-extrabold text-rose-500">0</div><div class="text-[10px] text-slate-400 font-bold uppercase">Errores</div></div><div><div id="skip-stat" class="text-xl font-extrabold text-slate-500">0</div><div class="text-[10px] text-slate-400 font-bold uppercase">Saltadas</div></div></div>
-        <div class="text-center min-h-[220px] flex flex-col items-center justify-center"><div id="loader" class="hidden flex gap-1 mb-5"><i class="w-2 h-2 rounded-full bg-indigo-500 animate-bounce"></i><i class="w-2 h-2 rounded-full bg-violet-500 animate-bounce [animation-delay:.12s]"></i><i class="w-2 h-2 rounded-full bg-fuchsia-500 animate-bounce [animation-delay:.24s]"></i></div><div id="complete-message" class="hidden"><div class="text-6xl mb-3">🎉</div><h2 class="text-2xl font-extrabold">¡Completaste esta categoría!</h2><p class="text-slate-500 text-sm mt-2">Has dominado todas las palabras a la primera.</p></div><div id="challenge-wrap"><div class="flex items-center justify-center gap-3"><h2 id="challenge-word" class="text-4xl font-extrabold capitalize tracking-tight"></h2><button id="speak-btn" aria-label="Escuchar pronunciación" class="btn w-11 h-11 rounded-full bg-indigo-50 text-indigo-600 text-xl hover:bg-indigo-100">🔊</button></div><p id="word-hint" class="text-xs text-slate-400 mt-3">Traduce esta palabra al español</p></div></div>
-        <div id="game-controls"><form id="answer-form" class="mt-3"><input id="answer-input" autocomplete="off" placeholder="Escribe la traducción..." class="w-full rounded-2xl border border-slate-200 px-4 py-3.5 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" /><button class="btn w-full mt-3 rounded-2xl py-3.5 text-white font-bold bg-gradient-to-r from-indigo-500 to-violet-600 shadow-lg shadow-indigo-200">Comprobar respuesta</button></form><button id="skip-btn" class="btn w-full mt-3 rounded-2xl py-3 text-slate-500 font-semibold hover:bg-slate-50">Saltar palabra</button><div id="feedback" class="min-h-6 text-center font-bold text-sm mt-4"></div><div id="clue" class="hidden text-center text-emerald-600 text-xs font-semibold mt-1"></div></div>
+        <div class="flex justify-between items-center mb-5">
+          <button class="text-sm font-semibold text-slate-500 hover:text-indigo-600" data-back="level">← Niveles</button>
+          <span id="combo-badge" class="bg-indigo-50 text-indigo-600 rounded-full px-3 py-1 text-xs font-bold"></span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 bg-slate-50 rounded-2xl p-3 mb-7 text-center">
+          <div>
+            <div id="correct-stat" class="text-xl font-extrabold text-emerald-600">0</div>
+            <div class="text-xs text-slate-400 font-bold">Correctas</div>
+          </div>
+          <div>
+            <div id="error-stat" class="text-xl font-extrabold text-rose-500">0</div>
+            <div class="text-xs text-slate-400 font-bold">Errores</div>
+          </div>
+          <div>
+            <div id="skip-stat" class="text-xl font-extrabold text-slate-500">0</div>
+            <div class="text-xs text-slate-400 font-bold">Saltadas</div>
+          </div>
+        </div>
+        <div class="text-center min-h-56 flex flex-col items-center justify-center">
+          <div id="loader" class="hidden flex gap-1 mb-5">
+            <i class="w-2 h-2 rounded-full bg-indigo-500 animate-bounce"></i>
+            <i class="w-2 h-2 rounded-full bg-violet-500 animate-bounce" style="animation-delay:.12s"></i>
+            <i class="w-2 h-2 rounded-full bg-fuchsia-500 animate-bounce" style="animation-delay:.24s"></i>
+          </div>
+          <div id="complete-message" class="hidden">
+            <div class="text-6xl mb-3">🎉</div>
+            <h2 class="text-2xl font-extrabold">¡Completado!</h2>
+            <p class="text-slate-500 text-sm mt-2">Has dominado todas las palabras.</p>
+          </div>
+          <div id="challenge-wrap">
+            <div class="flex items-center justify-center gap-3">
+              <h2 id="challenge-word" class="text-4xl font-extrabold"></h2>
+              <button id="speak-btn" class="btn w-11 h-11 rounded-full bg-indigo-50 text-indigo-600 text-xl">🔊</button>
+            </div>
+            <p id="word-hint" class="text-xs text-slate-400 mt-3">Traduce al español</p>
+          </div>
+        </div>
+        <div id="game-controls">
+          <form id="answer-form" class="mt-3">
+            <input id="answer-input" autocomplete="off" placeholder="Escribe la traducción..." class="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100" />
+            <button class="btn w-full mt-3 rounded-2xl py-3 text-white font-bold bg-gradient-to-r from-indigo-500 to-violet-600">Comprobar</button>
+          </form>
+          <button id="skip-btn" class="btn w-full mt-3 rounded-2xl py-2 text-slate-500 font-semibold hover:bg-slate-50">Saltar</button>
+          <div id="feedback" class="min-h-6 text-center font-bold text-sm mt-4"></div>
+          <div id="clue" class="hidden text-center text-emerald-600 text-xs font-semibold mt-1"></div>
+        </div>
       </section>
     </div>
-    <footer class="px-8 pb-6 text-center text-[10px] text-slate-400">Tu progreso se guarda automáticamente en este dispositivo</footer>
+    <footer class="px-8 pb-6 text-center text-xs text-slate-400">Progreso guardado en este dispositivo</footer>
   </main>
-<script>
-const categoriesData = { verbos:{label:'⚡ Verbos',levels:{A1:['be','have','go','eat'],A2:['choose','forget','promise','arrive'],B1:['improve','achieve','avoid','suggest'],B2:['assess','overcome','accomplish','anticipate']}}, adverbios:{label:'🎯 Adverbios',levels:{A1:['always','never','often','today'],A2:['already','usually','enough','almost'],B1:['hardly','eventually','actually','recently'],B2:['nevertheless','significantly','thoroughly','approximately']}}, conjunciones:{label:'🔗 Conjunciones',levels:{A1:['and','but','or','because'],A2:['although','while','unless','since'],B1:['whereas','therefore','however','despite'],B2:['notwithstanding','consequently','furthermore','hence']}}, objetos:{label:'📦 Objetos / Cosas',levels:{A1:['book','house','chair','computer'],A2:['umbrella','wallet','mirror','suitcase'],B1:['appliance','equipment','shelf','shortcut'],B2:['counterpart','breakthrough','infrastructure','outcome']}}};
-const localTranslations = {book:['libro'],house:['casa'],chair:['silla'],computer:['computadora','ordenador','computador'],be:['ser','estar'],have:['tener'],go:['ir'],eat:['comer'],and:['y'],but:['pero'],or:['o'],because:['porque'],always:['siempre'],never:['nunca'],often:['a menudo','frecuentemente'],today:['hoy'],choose:['elegir','escoger'],forget:['olvidar'],promise:['prometer'],arrive:['llegar'],improve:['mejorar'],achieve:['lograr','conseguir'],avoid:['evitar'],suggest:['sugerir'],umbrella:['paraguas'],wallet:['cartera','billetera'],mirror:['espejo'],suitcase:['maleta'],although:['aunque'],while:['mientras'],unless:['a menos que'],already:['ya'],usually:['normalmente'],enough:['suficiente'],almost:['casi']};
-const languages = {en:{name:'Inglés',native:'English',flag:'🇬🇧',voice:'en-US'},de:{name:'Alemán',native:'Deutsch',flag:'🇩🇪',voice:'de-DE'},fr:{name:'Francés',native:'Français',flag:'🇫🇷',voice:'fr-FR'},pt:{name:'Portugués',native:'Português',flag:'🇵🇹',voice:'pt-BR'}};
-const levels = [['A1','Básico','🌱'],['A2','Pre-Intermedio','🌿'],['B1','Intermedio','🌳'],['B2','Intermedio-Alto','🔥']];
-let state={language:null,category:null,level:null,current:null,answers:[],firstAttempt:true,wrong:0,stats:{correct:0,error:0,skip:0},loading:false};
-const $=s=>document.querySelector(s); const screens=['language','category','level','game'];
-function show(name){screens.forEach(x=>$('#'+x+'-screen').classList.toggle('hidden',x!==name)); const el=$('#'+name+'-screen'); el.classList.remove('screen-in'); void el.offsetWidth; el.classList.add('screen-in');}
-function mastered(){return JSON.parse(localStorage.getItem('mastered_words')||'{}');} function saveMastered(m){localStorage.setItem('mastered_words',JSON.stringify(m));}
-function comboKey(){return `${state.language}_${state.category}_${state.level}`;}
-function renderLanguages(){ $('#language-options').innerHTML=Object.entries(languages).map(([code,l])=>`<button class="btn w-full flex items-center gap-4 p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left" data-lang="${code}"><span class="text-3xl">${l.flag}</span><span><b class="block">${l.name}</b><small class="text-slate-400">${l.native}</small></span><span class="ml-auto text-slate-300">→</span></button>`).join(''); }
-function renderCategories(){ $('#category-title').textContent=`Paso 2 - Aprende ${languages[state.language].name}`; $('#category-options').innerHTML=Object.entries(categoriesData).map(([key,c])=>`<button class="btn w-full flex items-center p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left" data-cat="${key}"><span class="text-2xl mr-3">${c.label.split(' ')[0]}</span><span><b class="block">${c.label.substring(c.label.indexOf(' ')+1)}</b><small class="text-slate-400">Rango A1 - B2</small></span><span class="ml-auto text-slate-300">→</span></button>`).join(''); }
-function renderLevels(){ $('#level-title').textContent=`Paso 3 - Elige un Nivel (${languages[state.language].name})`; $('#level-options').innerHTML=levels.map(([id,desc,icon])=>`<button class="btn w-full flex items-center p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left" data-level="${id}"><span class="text-2xl mr-3">${icon}</span><span><b class="block">Nivel ${id}</b><small class="text-slate-400">${desc}</small></span><span class="ml-auto text-slate-300">→</span></button>`).join(''); }
-function updateStats(){ $('#correct-stat').textContent=state.stats.correct;$('#error-stat').textContent=state.stats.error;$('#skip-stat').textContent=state.stats.skip; }
-async function translate(word){ if(state.language==='en') return {display:word,accepted:localTranslations[word]||[await api(word,'es')]}; const translated=await api(word,state.language); return {display:translated,accepted:[translated]}; }
-async function api(word,target){try{const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|${target}`);const j=await r.json();return (j.responseData?.translatedText||word).replace(/\s*\([^)]*\)/g,'').trim().toLowerCase()}catch{return word}}
-async function nextWord(){state.loading=true;state.current=null;state.wrong=0;state.firstAttempt=true;$('#answer-input').disabled=true;$('#skip-btn').disabled=true;$('#loader').classList.remove('hidden');$('#challenge-wrap').classList.add('hidden');$('#feedback').textContent='';$('#clue').classList.add('hidden');const all=categoriesData[state.category].levels[state.level];const done=mastered()[comboKey()]||[];state.answers=all.filter(w=>!done.includes(w));if(!state.answers.length){complete();return}const word=state.answers[Math.floor(Math.random()*state.answers.length)];state.current=word;const result=await translate(word);state.display=result.display;state.accepted=result.accepted;$('#challenge-word').textContent=result.display;$('#word-hint').textContent=state.language==='en'?'Traduce esta palabra al español':`Traduce esta palabra al ${languages[state.language].name}`;$('#combo-badge').textContent=`${languages[state.language].name.toUpperCase()} · ${categoriesData[state.category].label.replace(/^\S+\s/,'').toUpperCase()} · ${state.level}`;$('#loader').classList.add('hidden');$('#challenge-wrap').classList.remove('hidden');$('#answer-input').disabled=false;$('#skip-btn').disabled=false;state.loading=false;$('#answer-input').focus();}
-function complete(){state.loading=false;$('#loader').classList.add('hidden');$('#challenge-wrap').classList.add('hidden');$('#game-controls').classList.add('opacity-50');$('#answer-input').disabled=true;$('#skip-btn').disabled=true;$('#complete-message').classList.remove('hidden');}
-function normalize(t){return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().replace(/[¿?¡!,.;:]/g,'')}
-function answer(){if(state.loading||!state.current)return;const value=normalize($('#answer-input').value);if(!value)return;const valid=state.accepted.some(x=>normalize(x)===value);if(valid){state.stats.correct++;$('#feedback').className='min-h-6 text-center font-bold text-sm mt-4 text-emerald-600 pop';$('#feedback').textContent='¡Correcto! ✅';if(state.firstAttempt){const m=mastered();m[comboKey()]=[...(m[comboKey()]||[]),state.current];saveMastered(m)}setTimeout(nextWord,700)}else{state.stats.error++;state.wrong++;state.firstAttempt=false;$('#feedback').className='min-h-6 text-center font-bold text-sm mt-4 text-rose-500';$('#feedback').textContent='Inténtalo de nuevo ❌';if(state.wrong>=3){$('#clue').textContent='Prueba con: '+state.accepted.join(' o ');$('#clue').classList.remove('hidden')}}updateStats();$('#answer-input').value='';}
-function skip(){if(state.loading)return;state.stats.skip++;updateStats();nextWord()}
-document.addEventListener('click',e=>{const lang=e.target.closest('[data-lang]');if(lang){state.language=lang.dataset.lang;renderCategories();show('category')}const cat=e.target.closest('[data-cat]');if(cat){state.category=cat.dataset.cat;renderLevels();show('level')}const lvl=e.target.closest('[data-level]');if(lvl){state.level=lvl.dataset.level;state.stats={correct:0,error:0,skip:0};$('#complete-message').classList.add('hidden');$('#game-controls').classList.remove('opacity-50');updateStats();show('game');nextWord()}const back=e.target.closest('[data-back]');if(back){show(back.dataset.back)}if(e.target.id==='skip-btn')skip();if(e.target.id==='speak-btn'&&state.display){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(state.display);u.lang=languages[state.language].voice;u.rate=.85;speechSynthesis.speak(u)}if(e.target.id==='reset-btn'){localStorage.removeItem('mastered_words');localStorage.removeItem('lexiflow_stats');$('#reset-confirm').classList.remove('hidden');setTimeout(()=>$('#reset-confirm').classList.add('hidden'),2000)}});
-$('#answer-form').addEventListener('submit',e=>{e.preventDefault();answer()});
-$('#answer-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();answer()}});
-renderLanguages();
-</script>
+
+  <script>
+    const categoriesData = {
+      verbos: {
+        label: '⚡ Verbos',
+        levels: {
+          A1: ['be', 'have', 'go', 'eat'],
+          A2: ['choose', 'forget', 'promise', 'arrive'],
+          B1: ['improve', 'achieve', 'avoid', 'suggest'],
+          B2: ['assess', 'overcome', 'accomplish', 'anticipate']
+        }
+      },
+      adverbios: {
+        label: '🎯 Adverbios',
+        levels: {
+          A1: ['always', 'never', 'often', 'today'],
+          A2: ['already', 'usually', 'enough', 'almost'],
+          B1: ['hardly', 'eventually', 'actually', 'recently'],
+          B2: ['nevertheless', 'significantly', 'thoroughly', 'approximately']
+        }
+      },
+      conjunciones: {
+        label: '🔗 Conjunciones',
+        levels: {
+          A1: ['and', 'but', 'or', 'because'],
+          A2: ['although', 'while', 'unless', 'since'],
+          B1: ['whereas', 'therefore', 'however', 'despite'],
+          B2: ['notwithstanding', 'consequently', 'furthermore', 'hence']
+        }
+      },
+      objetos: {
+        label: '📦 Objetos',
+        levels: {
+          A1: ['book', 'house', 'chair', 'computer'],
+          A2: ['umbrella', 'wallet', 'mirror', 'suitcase'],
+          B1: ['appliance', 'equipment', 'shelf', 'shortcut'],
+          B2: ['counterpart', 'breakthrough', 'infrastructure', 'outcome']
+        }
+      }
+    };
+
+    const localTranslations = {
+      book: ['libro'],
+      house: ['casa'],
+      chair: ['silla'],
+      computer: ['computadora', 'ordenador'],
+      be: ['ser', 'estar'],
+      have: ['tener'],
+      go: ['ir'],
+      eat: ['comer'],
+      and: ['y'],
+      but: ['pero'],
+      or: ['o'],
+      because: ['porque'],
+      always: ['siempre'],
+      never: ['nunca'],
+      often: ['a menudo'],
+      today: ['hoy'],
+      choose: ['elegir', 'escoger'],
+      forget: ['olvidar'],
+      promise: ['prometer'],
+      arrive: ['llegar'],
+      improve: ['mejorar'],
+      achieve: ['lograr', 'conseguir'],
+      avoid: ['evitar'],
+      suggest: ['sugerir'],
+      umbrella: ['paraguas'],
+      wallet: ['cartera', 'billetera'],
+      mirror: ['espejo'],
+      suitcase: ['maleta'],
+      although: ['aunque'],
+      while: ['mientras'],
+      unless: ['a menos que'],
+      already: ['ya'],
+      usually: ['normalmente'],
+      enough: ['suficiente'],
+      almost: ['casi']
+    };
+
+    const languages = {
+      en: { name: 'Inglés', native: 'English', flag: '🇬🇧', voice: 'en-US' },
+      de: { name: 'Alemán', native: 'Deutsch', flag: '🇩🇪', voice: 'de-DE' },
+      fr: { name: 'Francés', native: 'Français', flag: '🇫🇷', voice: 'fr-FR' },
+      pt: { name: 'Portugués', native: 'Português', flag: '🇵🇹', voice: 'pt-BR' }
+    };
+
+    const levels = [
+      ['A1', 'Básico', '🌱'],
+      ['A2', 'Pre-Intermedio', '🌿'],
+      ['B1', 'Intermedio', '🌳'],
+      ['B2', 'Intermedio-Alto', '🔥']
+    ];
+
+    let state = {
+      language: null,
+      category: null,
+      level: null,
+      current: null,
+      answers: [],
+      firstAttempt: true,
+      wrong: 0,
+      stats: { correct: 0, error: 0, skip: 0 },
+      loading: false
+    };
+
+    const $ = s => document.querySelector(s);
+    const screens = ['language', 'category', 'level', 'game'];
+
+    function show(name) {
+      screens.forEach(x => $(`#${x}-screen`).classList.toggle('hidden', x !== name));
+      const el = $(`#${name}-screen`);
+      el.classList.remove('screen-in');
+      void el.offsetWidth;
+      el.classList.add('screen-in');
+    }
+
+    function mastered() {
+      return JSON.parse(localStorage.getItem('mastered_words') || '{}');
+    }
+
+    function saveMastered(m) {
+      localStorage.setItem('mastered_words', JSON.stringify(m));
+    }
+
+    function comboKey() {
+      return `${state.language}_${state.category}_${state.level}`;
+    }
+
+    function renderLanguages() {
+      $('#language-options').innerHTML = Object.entries(languages)
+        .map(([code, l]) => `
+          <button class="btn w-full flex items-center gap-4 p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left" data-lang="${code}">
+            <span class="text-3xl">${l.flag}</span>
+            <span>
+              <b class="block">${l.name}</b>
+              <small class="text-slate-400">${l.native}</small>
+            </span>
+            <span class="ml-auto text-slate-300">→</span>
+          </button>
+        `).join('');
+    }
+
+    function renderCategories() {
+      $('#category-title').textContent = `Aprende ${languages[state.language].name}`;
+      $('#category-options').innerHTML = Object.entries(categoriesData)
+        .map(([key, c]) => `
+          <button class="btn w-full flex items-center p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left" data-cat="${key}">
+            <span class="text-2xl mr-3">${c.label.split(' ')[0]}</span>
+            <span>
+              <b class="block">${c.label.substring(c.label.indexOf(' ') + 1)}</b>
+              <small class="text-slate-400">A1 - B2</small>
+            </span>
+            <span class="ml-auto text-slate-300">→</span>
+          </button>
+        `).join('');
+    }
+
+    function renderLevels() {
+      $('#level-title').textContent = `Elige un Nivel`;
+      $('#level-options').innerHTML = levels
+        .map(([id, desc, icon]) => `
+          <button class="btn w-full flex items-center p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left" data-level="${id}">
+            <span class="text-2xl mr-3">${icon}</span>
+            <span>
+              <b class="block">Nivel ${id}</b>
+              <small class="text-slate-400">${desc}</small>
+            </span>
+            <span class="ml-auto text-slate-300">→</span>
+          </button>
+        `).join('');
+    }
+
+    function updateStats() {
+      $('#correct-stat').textContent = state.stats.correct;
+      $('#error-stat').textContent = state.stats.error;
+      $('#skip-stat').textContent = state.stats.skip;
+    }
+
+    async function translate(word) {
+      if (state.language === 'en') {
+        return {
+          display: word,
+          accepted: localTranslations[word] || [await api(word, 'es')]
+        };
+      }
+      const translated = await api(word, state.language);
+      return { display: translated, accepted: [translated] };
+    }
+
+    async function api(word, target) {
+      try {
+        const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|${target}`);
+        const j = await r.json();
+        return (j.responseData?.translatedText || word).replace(/\s*\([^)]*\)/g, '').trim().toLowerCase();
+      } catch {
+        return word;
+      }
+    }
+
+    async function nextWord() {
+      state.loading = true;
+      state.current = null;
+      state.wrong = 0;
+      state.firstAttempt = true;
+      $('#answer-input').disabled = true;
+      $('#skip-btn').disabled = true;
+      $('#loader').classList.remove('hidden');
+      $('#challenge-wrap').classList.add('hidden');
+      $('#feedback').textContent = '';
+      $('#clue').classList.add('hidden');
+
+      const all = categoriesData[state.category].levels[state.level];
+      const done = mastered()[comboKey()] || [];
+      state.answers = all.filter(w => !done.includes(w));
+
+      if (!state.answers.length) {
+        complete();
+        return;
+      }
+
+      const word = state.answers[Math.floor(Math.random() * state.answers.length)];
+      state.current = word;
+      const result = await translate(word);
+      state.display = result.display;
+      state.accepted = result.accepted;
+
+      $('#challenge-word').textContent = result.display;
+      $('#combo-badge').textContent = `${languages[state.language].name} · ${categoriesData[state.category].label.substring(2)} · ${state.level}`;
+
+      $('#loader').classList.add('hidden');
+      $('#challenge-wrap').classList.remove('hidden');
+      $('#answer-input').disabled = false;
+      $('#skip-btn').disabled = false;
+      state.loading = false;
+      $('#answer-input').focus();
+    }
+
+    function complete() {
+      state.loading = false;
+      $('#loader').classList.add('hidden');
+      $('#challenge-wrap').classList.add('hidden');
+      $('#game-controls').classList.add('opacity-50');
+      $('#answer-input').disabled = true;
+      $('#skip-btn').disabled = true;
+      $('#complete-message').classList.remove('hidden');
+    }
+
+    function normalize(t) {
+      return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().replace(/[¿?¡!,.;:]/g, '');
+    }
+
+    function answer() {
+      if (state.loading || !state.current) return;
+      const value = normalize($('#answer-input').value);
+      if (!value) return;
+
+      const valid = state.accepted.some(x => normalize(x) === value);
+
+      if (valid) {
+        state.stats.correct++;
+        $('#feedback').className = 'min-h-6 text-center font-bold text-sm mt-4 text-emerald-600 pop';
+        $('#feedback').textContent = '¡Correcto! ✅';
+
+        if (state.firstAttempt) {
+          const m = mastered();
+          m[comboKey()] = [...(m[comboKey()] || []), state.current];
+          saveMastered(m);
+        }
+
+        setTimeout(nextWord, 700);
+      } else {
+        state.stats.error++;
+        state.wrong++;
+        state.firstAttempt = false;
+        $('#feedback').className = 'min-h-6 text-center font-bold text-sm mt-4 text-rose-500';
+        $('#feedback').textContent = 'Inténtalo de nuevo ❌';
+
+        if (state.wrong >= 3) {
+          $('#clue').textContent = 'Pista: ' + state.accepted.join(' o ');
+          $('#clue').classList.remove('hidden');
+        }
+      }
+
+      updateStats();
+      $('#answer-input').value = '';
+    }
+
+    function skip() {
+      if (state.loading) return;
+      state.stats.skip++;
+      updateStats();
+      nextWord();
+    }
+
+    document.addEventListener('click', e => {
+      const lang = e.target.closest('[data-lang]');
+      if (lang) {
+        state.language = lang.dataset.lang;
+        renderCategories();
+        show('category');
+      }
+
+      const cat = e.target.closest('[data-cat]');
+      if (cat) {
+        state.category = cat.dataset.cat;
+        renderLevels();
+        show('level');
+      }
+
+      const lvl = e.target.closest('[data-level]');
+      if (lvl) {
+        state.level = lvl.dataset.level;
+        state.stats = { correct: 0, error: 0, skip: 0 };
+        $('#complete-message').classList.add('hidden');
+        $('#game-controls').classList.remove('opacity-50');
+        updateStats();
+        show('game');
+        nextWord();
+      }
+
+      const back = e.target.closest('[data-back]');
+      if (back) {
+        show(back.dataset.back);
+      }
+
+      if (e.target.id === 'skip-btn') skip();
+
+      if (e.target.id === 'speak-btn' && state.display) {
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(state.display);
+        u.lang = languages[state.language].voice;
+        u.rate = 0.85;
+        speechSynthesis.speak(u);
+      }
+
+      if (e.target.id === 'reset-btn') {
+        localStorage.removeItem('mastered_words');
+        localStorage.removeItem('lexiflow_stats');
+        $('#reset-confirm').classList.remove('hidden');
+        setTimeout(() => $('#reset-confirm').classList.add('hidden'), 2000);
+      }
+    });
+
+    $('#answer-form').addEventListener('submit', e => {
+      e.preventDefault();
+      answer();
+    });
+
+    $('#answer-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        answer();
+      }
+    });
+
+    renderLanguages();
+  </script>
 </body>
 </html>
